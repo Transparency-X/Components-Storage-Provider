@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "yourorg-storage"
+version = "2.0.0"
+description = "Vendor-agnostic cloud storage component with async support"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+dependencies = [
+    "boto3>=1.28.0",
+    "botocore>=1.31.0",
+    "tenacity>=8.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "moto[s3]>=4.0",
+    "aioboto3>=12.0",   # future native async adapter
+]
+async = []              # placeholder; currently AsyncStorageProvider works without extra deps
+
+[tool.setuptools.packages.find]
+include = ["storage*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
